@@ -1,0 +1,17 @@
+The extraction algorithm can process articles in html or ascii format directly. It starts by looking for sequences of 2-10 words, that are immediately followed by at least two capitals into brackets.
+
+HTML tags are eliminated from the extract, as well as indices and exponents that possibly occur after the acronym.
+
+Once this is done, the problem consists in finding the location of the first word of the acronym in the sequence of 2 to 10 words that precede the sequence of capitals into brackets.
+
+The alignment of definition’s words and acronym’s capitals is achieved from right to left. The algorithm starts by searching the word most to the right which starts by the acronym’s capital most to the right.
+
+When successful, the search starts again, with the capital at the immediate left of the last processed capital and from the location of the word most to the right which is not already associated with an acronym’s capital.
+
+When unsuccessful, the current capital is ignored and the search starts again with the capital at the immediate left, from the current location in the definition. This process is repeated until it reaches the acronym’s capital most to the left.
+
+This algorithm ensures a perfect extraction of simple acronym’s definitions, in which each word of location l in the definition starts with the capital of location l in the acronym. The extraction may be imperfect in several other situations, for instance when stop-words occur in the definition whilst they are ignored as capitals in the acronym.
+
+Using a collection of scientific articles, mainly in english langage, we observed such imperfections when the acronym and its definition are expressed in two distinct langages.
+
+However, the algorithm seems to be rather robust : for instance, its captures : "du carbone organique dissous (DOC)" for Dissolved Organic Carbon, elektronenmikroskopie (TEM) and mittels transmissionselektronenmikroskopie (TEM) for Transmission Electron Microscop/y/e/es/ic.

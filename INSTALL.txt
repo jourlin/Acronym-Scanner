@@ -1,0 +1,12 @@
+*******************
+AcroDefScanner.flex
+*******************
+Function : Extract the definitions of acronyms that occurs in a html or ascii text file
+
+Compilation :
+flex -o AcroDefScanner.c AcroDefScanner.flex
+gcc AcroDefScanner.c -o AcroDefScanner -lfl
+
+Execution (article is a html or ascii file, display result on standard output) :
+./AcroDefScanner article
+

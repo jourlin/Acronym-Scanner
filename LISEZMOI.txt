@@ -1,0 +1,11 @@
+L’algorithme d’extraction fonctionne directement sur les articles au format html. Il commence par rechercher les séquences de 2 à 10 mots suivies immédiatement d’une séquence d’au moins deux lettres majuscules entourée par des parenthèses. Les balises de style sont éliminées dans l’extrait, ainsi que les éventuels indices et exposants.
+
+Une fois que cela est fait, la problématique consiste à trouver la position du premier mot de l’acronyme dans la séquence de 2 à 10 mots qui précède la séquences d’initiales parenthésée.
+
+L’alignement entre mots de la définition et initiales de l’acronyme est réalisé de droite à gauche. On recherche tout d’abord le mot le plus à droite qui commence par l’initiale la plus à droite. En cas de succès, la recherche reprend pour l’initiale immédiatement à gauche de la dernière traitée, à partir de la position dans la définition qui correspond au mot le plus à droite non encore associé à une initiale. En cas d’échec, l’initiale est ignorée et la recherche reprends avec l’initiale immédiatement à gauche, à partir de la position courante dans la définition. Le processus est réitéré jusqu’à la première initiale de l’acronyme.
+
+Cet algorithme garanti l’extraction parfaite de définitions simples, dans lesquelles chaque mot de position p de la définition correspond à l’initiale de position p de l’acronyme. L’extraction peut être imparfaite dans d’autres cas, par exemple lorsque des mots-fonctions sont présents dans la définition, mais ne sont pas représentés par leurs initiales dans l’acronyme.
+
+Sur une base d’articles scientifiques principalement en langue anglaise, nous observons quelques difficultés lorsque l’acronyme et sa définition sont exprimés dans deux langues distinctes.
+
+L’algorithme se révèle néanmoins assez robuste : il détecte par exemple "du carbone organique dissous (DOC)" pour Dissolved Organic Carbon, elektronenmikroskopie (TEM) et mittels transmissionselektronenmikroskopie (TEM) pour Transmission Electron Microscop/y/e/es/ic.

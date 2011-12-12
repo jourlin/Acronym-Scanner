@@ -115,15 +115,20 @@ void GetDefinition(char *def, char *text)
 
 %}
 /* Identifier	Regular Expression */
-SUBSCRIPT	\<sub\>[a-z]+\<\/sub\>
-TAG	\<\/?[A-Za-z]+\>
-ACRO	([A-Za-z]+[\-\ ]){2,10}\({TAG}?[A-Z][A-Z]+{TAG}?{SUBSCRIPT}?\)
+/*SUBSCRIPT	\<sub\>[a-z]+\<\/sub\>*/
+/* Prends en compte langues accentués JMT 2011.12.9 */
+SUBSCRIPT	\<sub\>[a-zâáàäêéèëïíîöóôöúùûñç']+\<\/sub\>
+/*TAG	\<\/?[A-Za-z]+\>*/
+TAG	\<\/?[A-Za-zâáàäêéèëïíîöóôöúùûñç']+\>
+/*ACRO	([A-Za-z]+[\-\ ]){2,10}\({TAG}?[A-Z][A-Z]+{TAG}?{SUBSCRIPT}?\)*/
+ACRO	([A-Za-zâáàäêéèëïíîöóôöúùûñç']+[\-\ ]){2,10}\({TAG}?[A-Z][A-Z]+{TAG}?{SUBSCRIPT}?\)
 %%
 		/* RegularExpression	Code	*/
 {ACRO}	{	
-		GetDefinition(Acro, yytext);
-		fprintf(facro, "%s\n",Acro);
-	}
+			GetDefinition(Acro, yytext);
+			/* fprintf(facro, "%s\n",Acro);*/
+			printf("%s\n",Acro);	/* Sortie standard JMT 10.12.11 */
+		}
 
 [ \n\t]		/* skip blanks */   
 .		;
@@ -139,10 +144,10 @@ main( argc, argv )
                      yyin = fopen( argv[0], "r" );
              else
                      yyin = stdin;
-	     strcpy(fnacro, argv[0]);
+/*	     strcpy(fnacro, argv[0]);
 	     strcat(fnacro, ".def");
-	     facro=fopen(fnacro, "w+");
+	     facro=fopen(fnacro, "w+");	 Sortie standard JMT 10.12.11 */
              yylex();
-	     fclose(facro);
+/*	     fclose(facro);*/
              }
 
